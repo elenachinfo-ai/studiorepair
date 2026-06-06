@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>РЕНЕССАНС — Мастерская реставрации мебели</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ДИЗАЙН ТОКЕНЫ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+:root {
+  --cream:  #F2EDE3;
+  --paper:  #EAE3D5;
+  --linen:  #DDD4C0;
+  --white:  #FAF8F3;
+  --dk:     #141009;
+  --dk1:    #1E180F;
+  --dk2:    #2A2018;
+  --warm:   #3D3020;
+  --ac:     #8A5220;
+  --ac1:    #AE6A28;
+  --ac2:    #D08A40;
+  --tx:     #2A2010;
+  --mu:     #685848;
+  --dim:    #A08868;
+  --ln:     rgba(42,32,16,.08);
+  --ln2:    rgba(42,32,16,.14);
+
+  --f-serif: 'Cormorant Garamond', Georgia, serif;
+  --f-sans:  'Manrope', system-ui, sans-serif;
+
+  /* ─ ЕДИНЫЙ ОТСТУП ─ */
+  --G: 64px;
+  --MW: 1280px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   12-COL GRID SYSTEM
+   Любой блок = .col.pw > .grid
+   section сам ВСЕГДА full-width
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.pw   { max-width:var(--MW); margin:0 auto; padding:0 var(--G); }
+.grid { display:grid; grid-template-columns:repeat(12,1fr); gap:24px; }
+
+.c1  { grid-column:span 1  }
+.c2  { grid-column:span 2  }
+.c3  { grid-column:span 3  }
+.c4  { grid-column:span 4  }
+.c5  { grid-column:span 5  }
+.c6  { grid-column:span 6  }
+.c7  { grid-column:span 7  }
+.c8  { grid-column:span 8  }
+.c9  { grid-column:span 9  }
+.c10 { grid-column:span 10 }
+.c11 { grid-column:span 11 }
+.c12 { grid-column:span 12 }
+.os1 { grid-column-start:2 }
+.os2 { grid-column-start:3 }
+.os3 { grid-column-start:4 }
+.os4 { grid-column-start:5 }
+.os7 { grid-column-start:7 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESET & BASE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0 }
+html { scroll-behavior:smooth; font-size:16px }
+body {
+  font-family:var(--f-sans);
+  font-size:16px;
+  line-height:1.65;
+  background:var(--cream);
+  color:var(--tx);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img { display:block; width:100%; height:100%; object-fit:cover }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RIBBON
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.ribbon {
+  background:var(--dk);
+  padding:10px var(--G);
+  text-align:center;
+  font-size:11px; font-weight:600;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(242,237,227,.4);
+}
+.ribbon b { color:var(--ac2) }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   NAV
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.nav {
+  position:sticky; top:0; z-index:300;
+  height:68px;
+  padding:0 var(--G);
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(242,237,227,.96);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--ln);
+}
+.nav-logo {
+  font-family:var(--f-serif);
+  font-size:22px; font-weight:400;
+  color:var(--dk); text-decoration:none;
+  letter-spacing:.04em;
+}
+.nav-logo em { font-style:normal; color:var(--ac) }
+.nav-ul { display:flex; list-style:none; gap:32px }
+.nav-ul a {
+  font-size:12px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:var(--mu); text-decoration:none;
+  transition:color .2s;
+}
+.nav-ul a:hover { color:var(--ac) }
+.nav-btn {
+  font-family:var(--f-sans); font-size:12px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  background:var(--ac); color:#fff;
+  border:none; padding:11px 26px;
+  cursor:pointer; transition:background .2s,transform .15s;
+}
+.nav-btn:hover { background:var(--ac1); transform:translateY(-1px) }
+.hbg {
+  display:none; flex-direction:column; gap:5px;
+  background:none; border:none; cursor:pointer; padding:4px;
+}
+.hbg span { display:block; width:24px; height:1.5px; background:var(--dk); transition:all .28s }
+.hbg.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg) }
+.hbg.open span:nth-child(2) { opacity:0 }
+.hbg.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg) }
+.mob {
+  display:none; position:fixed;
+  top:68px; inset:68px 0 0;
+  background:var(--cream); z-index:290;
+  flex-direction:column;
+  padding:28px var(--G) 48px;
+  border-top:1px solid var(--ln);
+  overflow-y:auto;
+}
+.mob.open { display:flex }
+.mob a {
+  font-family:var(--f-serif); font-size:30px; font-weight:300;
+  color:var(--dk); text-decoration:none;
+  padding:14px 0; border-bottom:1px solid var(--ln);
+  display:flex; justify-content:space-between; align-items:center;
+  transition:color .2s;
+}
+.mob a::after { content:'→'; font-family:var(--f-sans); font-size:20px; color:var(--ac); opacity:0; transition:opacity .2s }
+.mob a:hover { color:var(--ac) }
+.mob a:hover::after { opacity:1 }
+.mob-cta {
+  margin-top:24px; background:var(--ac); color:#fff!important;
+  font-family:var(--f-sans)!important; font-size:13px!important; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  padding:18px; text-align:center;
+}
+.mob-cta::after { display:none!important }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HERO — full-bleed split
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.hero {
+  display:grid;
+  grid-template-columns:54% 46%;
+  min-height:calc(100svh - 68px);
+  border-bottom:1px solid var(--ln);
+}
+.hero-l {
+  background:var(--dk);
+  padding:80px var(--G);
+  display:flex; flex-direction:column; justify-content:space-between;
+  border-right:1px solid rgba(255,255,255,.05);
+  position:relative; overflow:hidden;
+}
+.hero-l::before {
+  content:''; position:absolute; top:0; left:var(--G);
+  width:88px; height:2px; background:var(--ac);
+}
+.hero-l::after {
+  content:''; position:absolute; bottom:0; right:0;
+  width:280px; height:280px;
+  border:1px solid rgba(138,82,32,.12);
+  border-radius:50%;
+  transform:translate(40%,40%);
+  pointer-events:none;
+}
+.h-label {
+  font-size:11px; font-weight:700;
+  letter-spacing:.28em; text-transform:uppercase;
+  color:var(--ac2);
+  display:flex; align-items:center; gap:12px;
+}
+.h-label::before { content:''; width:36px; height:1px; background:var(--ac); flex-shrink:0 }
+.h-h1 {
+  font-family:var(--f-serif);
+  font-size:clamp(56px,7vw,104px);
+  font-weight:300; line-height:.95;
+  color:var(--cream); letter-spacing:-.02em;
+  margin:28px 0 0;
+}
+.h-h1 em { font-style:italic; color:var(--ac2); display:block; padding-left:.1em }
+.h-p {
+  font-size:18px; font-weight:300;
+  color:rgba(242,237,227,.42);
+  line-height:1.85; max-width:420px;
+  margin-top:24px;
+}
+.h-stats {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:32px; margin-top:40px;
+}
+.h-stat { padding-right:20px }
+.h-stat+.h-stat { border-left:1px solid rgba(255,255,255,.07); padding-left:20px; padding-right:0 }
+.h-num {
+  font-family:var(--f-serif);
+  font-size:52px; font-weight:300;
+  color:var(--ac2); line-height:1;
+}
+.h-lbl { font-size:14px; font-weight:400; color:rgba(242,237,227,.3); margin-top:6px }
+.h-btns { display:flex; gap:12px; flex-wrap:wrap; margin-top:32px }
+
+.btn-fill {
+  font-family:var(--f-sans); font-size:13px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  background:var(--ac); color:#fff;
+  border:none; padding:16px 36px;
+  cursor:pointer; transition:background .2s,transform .15s,box-shadow .2s;
+}
+.btn-fill:hover { background:var(--ac1); transform:translateY(-2px); box-shadow:0 10px 28px rgba(138,82,32,.35) }
+.btn-ghost {
+  font-family:var(--f-sans); font-size:13px; font-weight:500;
+  letter-spacing:.1em; text-transform:uppercase;
+  background:transparent; color:rgba(242,237,227,.35);
+  border:1px solid rgba(242,237,227,.14);
+  padding:15px 28px; cursor:pointer; transition:all .2s;
+}
+.btn-ghost:hover { border-color:var(--ac2); color:var(--ac2) }
+
+.hero-r { position:relative; overflow:hidden; background:var(--linen) }
+.hero-r img {
+  position:absolute; inset:0;
+  filter:brightness(.68) saturate(.78) contrast(1.08);
+  transition:transform 12s ease;
+}
+.hero-r:hover img { transform:scale(1.06) }
+.hero-r-overlay {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:36px var(--G);
+  background:linear-gradient(transparent,rgba(20,16,9,.8));
+  display:flex; justify-content:space-between; align-items:flex-end;
+}
+.hero-r-overlay p { font-size:14px; font-weight:300; color:rgba(242,237,227,.55); line-height:1.5 }
+.hero-r-overlay span { font-family:var(--f-serif); font-size:16px; font-style:italic; color:var(--ac2) }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MARQUEE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.mq-wrap {
+  background:var(--ac); overflow:hidden; height:48px;
+  display:flex; align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.mq-track {
+  display:flex; gap:0;
+  animation:mq 30s linear infinite;
+  white-space:nowrap;
+}
+.mq-track span {
+  font-size:12px; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(255,255,255,.75); padding:0 36px;
+}
+.mq-track span.dot { color:rgba(255,255,255,.3); padding:0 4px; letter-spacing:0 }
+@keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   СЕКЦИИ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.sec { border-bottom:1px solid var(--ln) }
+.sec-pad { padding-top:96px; padding-bottom:96px }
+.sec-label {
+  font-size:11px; font-weight:700;
+  letter-spacing:.26em; text-transform:uppercase;
+  color:var(--ac); margin-bottom:48px;
+  display:flex; align-items:center; gap:14px;
+}
+.sec-label::after { content:''; flex:1; height:1px; background:var(--ln2); max-width:160px }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ABOUT  c6 + c6
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.about-q {
+  font-family:var(--f-serif);
+  font-size:clamp(36px,4vw,58px);
+  font-weight:300; line-height:1.1;
+  color:var(--dk); letter-spacing:-.01em;
+}
+.about-q em { font-style:italic; color:var(--ac) }
+.about-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:36px }
+.tag {
+  font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ac); border:1px solid rgba(138,82,32,.25); padding:8px 18px;
+  cursor:default; transition:all .2s; background:transparent;
+}
+.tag:hover { background:var(--ac); color:#fff; border-color:var(--ac) }
+.about-body { display:flex; flex-direction:column; gap:20px; padding-top:8px }
+.about-body p { font-size:18px; font-weight:300; color:var(--mu); line-height:1.85 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   WORKS — swap cards c4
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.w-card {
+  border:1px solid var(--ln2); background:var(--white);
+  display:flex; flex-direction:column; overflow:hidden;
+  transition:transform .3s,box-shadow .3s;
+}
+.w-card:hover { transform:translateY(-6px); box-shadow:0 20px 48px rgba(42,32,16,.1) }
+.swap {
+  position:relative; overflow:hidden; height:280px;
+  cursor:crosshair; background:var(--linen); flex-shrink:0;
+}
+.sw-b, .sw-a { position:absolute; inset:0; transition:opacity .55s }
+.sw-b { opacity:1 } .sw-a { opacity:0 }
+.swap:hover .sw-b { opacity:0 } .swap:hover .sw-a { opacity:1 }
+.sw-b img { filter:saturate(.08) brightness(.76) }
+.sw-a img { filter:saturate(.88) brightness(.82) }
+.sw-lbl {
+  position:absolute; top:12px; left:12px;
+  font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:#fff; background:rgba(20,16,9,.65); padding:4px 10px;
+  transition:opacity .4s;
+}
+.sw-lbl-a {
+  position:absolute; top:12px; left:12px;
+  font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:#fff; background:var(--ac); padding:4px 10px; opacity:0; transition:opacity .4s;
+}
+.sw-hint {
+  position:absolute; bottom:12px; right:12px;
+  font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  color:rgba(242,237,227,.8); background:rgba(20,16,9,.5); padding:4px 10px;
+  transition:opacity .35s;
+}
+.swap:hover .sw-lbl { opacity:0 }
+.swap:hover .sw-lbl-a { opacity:1 }
+.swap:hover .sw-hint { opacity:0 }
+.w-info { padding:22px 24px 26px; border-top:1px solid var(--ln); flex:1 }
+.w-title { font-family:var(--f-serif); font-size:22px; font-weight:400; color:var(--dk); margin-bottom:8px }
+.w-desc { font-size:15px; font-weight:300; color:var(--mu); line-height:1.6 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   QUIZ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.quiz-center { max-width:920px; margin:0 auto }
+.quiz-sec { background:var(--paper) }
+.quiz-box { border:1px solid var(--ln2); overflow:hidden; background:var(--white) }
+.qz-head {
+  background:var(--dk); padding:32px 48px;
+  display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+}
+.qz-head-l h2 { font-family:var(--f-serif); font-size:28px; font-weight:400; color:var(--cream); line-height:1.2 }
+.qz-head-l p { font-size:15px; font-weight:300; color:rgba(242,237,227,.38); margin-top:6px }
+.qz-bonus {
+  border:1px solid rgba(208,138,64,.3); background:rgba(208,138,64,.08);
+  padding:14px 22px; text-align:center; flex-shrink:0;
+}
+.qz-bonus b { font-family:var(--f-serif); font-size:32px; font-weight:300; color:var(--ac2); display:block; line-height:1 }
+.qz-bonus span { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(208,138,64,.6) }
+.qz-prog {
+  background:var(--dk1); padding:0 48px; height:52px;
+  display:flex; align-items:center; gap:16px;
+}
+.qz-dots { display:flex; gap:8px }
+.qz-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.15); transition:all .3s }
+.qz-dot.done { background:var(--ac) }
+.qz-dot.cur { background:var(--ac2); transform:scale(1.35) }
+.qz-prog-lbl { font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(242,237,227,.28); margin-left:auto }
+.qz-step { display:none; padding:48px }
+.qz-step.active { display:block }
+.qz-q-num { font-size:11px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ac); display:block; margin-bottom:10px }
+.qz-question { font-family:var(--f-serif); font-size:clamp(24px,2.8vw,36px); font-weight:400; color:var(--dk); line-height:1.25; margin-bottom:36px }
+.qz-opts { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px }
+.qz-opt {
+  text-align:left; cursor:pointer;
+  border:1px solid var(--ln2); background:var(--cream);
+  padding:20px 24px; transition:all .2s; font-family:var(--f-sans);
+}
+.qz-opt:hover { border-color:var(--ac1); background:var(--white); transform:translateY(-2px) }
+.qz-opt.sel { border-color:var(--ac); background:rgba(138,82,32,.06); box-shadow:inset 0 0 0 1px var(--ac) }
+.qz-opt-t { font-size:17px; font-weight:600; color:var(--dk) }
+.qz-opt-s { font-size:14px; font-weight:300; color:var(--mu); margin-top:5px }
+.qz-nav {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:22px 48px; border-top:1px solid var(--ln); background:var(--paper);
+}
+.qz-back {
+  font-family:var(--f-sans); font-size:14px; font-weight:400;
+  color:var(--mu); background:none; border:none; cursor:pointer;
+  letter-spacing:.04em; transition:color .2s;
+}
+.qz-back:hover { color:var(--ac) }
+.qz-back:disabled { opacity:.25; pointer-events:none }
+.qz-next {
+  font-family:var(--f-sans); font-size:13px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  background:var(--ac); color:#fff;
+  border:none; padding:14px 36px; cursor:pointer; transition:background .2s,transform .15s;
+}
+.qz-next:hover { background:var(--ac1); transform:translateY(-1px) }
+/* финал квиза */
+.qz-final { display:none; padding:48px }
+.qz-final.active { display:block }
+.qz-final h2 { font-family:var(--f-serif); font-size:36px; font-weight:400; color:var(--dk); margin-bottom:10px }
+.qz-final-sub { font-size:17px; font-weight:300; color:var(--mu); margin-bottom:28px; line-height:1.7 }
+.qz-summary {
+  background:var(--paper); border-left:3px solid var(--ac);
+  padding:18px 22px; margin-bottom:28px;
+  font-size:16px; font-weight:300; color:var(--mu); line-height:1.75;
+}
+.qz-summary strong { font-weight:700; color:var(--dk) }
+.qz-form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px }
+.qz-inp {
+  background:var(--cream); border:1px solid var(--ln2); color:var(--dk);
+  padding:16px 18px; font-family:var(--f-sans); font-size:16px; font-weight:300;
+  outline:none; width:100%; transition:border-color .2s;
+}
+.qz-inp::placeholder { color:var(--dim) }
+.qz-inp:focus { border-color:var(--ac) }
+.qz-checks { display:flex; flex-direction:column; gap:12px; margin-bottom:22px }
+.qz-chk {
+  display:flex; align-items:flex-start; gap:12px;
+  cursor:pointer; font-size:15px; font-weight:300; color:var(--mu);
+  line-height:1.55; user-select:none;
+}
+.qz-chk a { color:var(--ac); text-decoration:underline; text-underline-offset:3px }
+.chkb {
+  width:20px; height:20px; flex-shrink:0; margin-top:1px;
+  border:1px solid var(--ln2); background:transparent;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; color:#fff; transition:all .18s;
+}
+.chkb.on { background:var(--ac); border-color:var(--ac) }
+.qz-submit {
+  background:var(--ac); color:#fff; border:none;
+  padding:18px; width:100%;
+  font-family:var(--f-sans); font-size:14px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  cursor:pointer; transition:background .2s,transform .15s;
+}
+.qz-submit:hover { background:var(--ac1); transform:translateY(-1px) }
+.qz-note { font-size:13px; font-weight:300; color:var(--dim); text-align:center; margin-top:12px }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SERVICES  c3 dark + c9 grid
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.svc-wrap {
+  display:grid; grid-template-columns:repeat(12,1fr);
+  border:1px solid var(--ln2);
+}
+.svc-sidebar {
+  grid-column:span 3;
+  background:var(--dk);
+  padding:48px 36px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  border-right:1px solid rgba(255,255,255,.06);
+}
+.svc-sidebar h2 {
+  font-family:var(--f-serif); font-size:40px; font-weight:300;
+  color:var(--cream); line-height:1.15; letter-spacing:-.01em;
+}
+.svc-sidebar h2 em { font-style:italic; color:var(--ac2) }
+.svc-sidebar p { font-size:16px; font-weight:300; color:rgba(242,237,227,.35); line-height:1.75; margin-top:16px }
+.svc-grid {
+  grid-column:span 9;
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:0; background:var(--ln);
+}
+.svc-item {
+  background:var(--white); padding:32px 28px;
+  border-right:1px solid var(--ln); border-bottom:1px solid var(--ln);
+  transition:background .22s; position:relative; overflow:hidden;
+}
+.svc-item::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:2px; background:var(--ac);
+  transform:scaleX(0); transform-origin:left; transition:transform .3s;
+}
+.svc-item:hover::before { transform:scaleX(1) }
+.svc-item:hover { background:var(--cream) }
+.svc-item:nth-child(3n) { border-right:none }
+.svc-item:nth-child(n+4) { border-bottom:none }
+.svc-n { font-family:var(--f-serif); font-size:56px; font-weight:300; color:var(--linen); line-height:1; margin-bottom:18px; user-select:none }
+.svc-t { font-family:var(--f-serif); font-size:22px; font-weight:400; color:var(--dk); margin-bottom:10px; line-height:1.2 }
+.svc-d { font-size:15px; font-weight:300; color:var(--mu); line-height:1.7 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PROCESS  4 шага
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.proc-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--ln2); margin-top:48px;
+}
+.proc-step {
+  padding:40px 32px 48px;
+  border-right:1px solid var(--ln2);
+  background:var(--white); position:relative;
+  transition:background .22s;
+}
+.proc-step:last-child { border-right:none }
+.proc-step:hover { background:var(--cream) }
+.proc-step:not(:last-child)::after {
+  content:'→'; position:absolute; top:36px; right:-10px;
+  font-size:16px; color:var(--ac); background:var(--white);
+  padding:0 4px; transition:background .22s;
+}
+.proc-step:hover::after { background:var(--cream) }
+.proc-n { font-family:var(--f-serif); font-size:72px; font-weight:300; color:var(--linen); line-height:1; margin-bottom:22px; user-select:none }
+.proc-t { font-size:18px; font-weight:700; color:var(--dk); margin-bottom:10px }
+.proc-d { font-size:16px; font-weight:300; color:var(--mu); line-height:1.7 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PRICING  3×c4
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.pc {
+  border:1px solid var(--ln2); background:var(--white);
+  padding:40px 36px; transition:all .28s;
+}
+.pc:hover { transform:translateY(-6px); box-shadow:0 20px 48px rgba(42,32,16,.09) }
+.pc.feat { background:var(--dk); border-top:3px solid var(--ac2) }
+.pc.feat:hover { box-shadow:0 20px 48px rgba(20,16,9,.28) }
+.pc-tag { font-size:10px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ac); display:block; margin-bottom:18px }
+.pc.feat .pc-tag { color:var(--ac2) }
+.pc-name { font-family:var(--f-serif); font-size:28px; font-weight:400; color:var(--dk); margin-bottom:10px }
+.pc.feat .pc-name { color:var(--cream) }
+.pc-price { font-family:var(--f-serif); font-size:40px; font-weight:300; color:var(--ac); margin-bottom:16px }
+.pc.feat .pc-price { color:var(--ac2) }
+.pc-note { font-size:16px; font-weight:300; color:var(--mu); line-height:1.6 }
+.pc.feat .pc-note { color:rgba(242,237,227,.38) }
+.price-note { font-size:15px; font-weight:300; color:var(--dim); text-align:center; margin-top:20px }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   REVIEWS — 7 отзывов, 3 колонки
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.rv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px }
+.rv {
+  background:var(--white); border:1px solid var(--ln2);
+  padding:36px 32px; display:flex; flex-direction:column;
+  transition:box-shadow .3s,transform .3s;
+}
+.rv:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(42,32,16,.08) }
+.rv:nth-child(2) { background:var(--paper) }
+.rv:nth-child(5) { background:var(--dk); border-color:var(--dk) }
+.rv-top { display:flex; align-items:center; gap:16px; margin-bottom:22px }
+.rv-photo {
+  width:54px; height:54px; border-radius:50%; overflow:hidden; flex-shrink:0;
+  border:2px solid var(--ac2);
+}
+.rv-photo img { width:100%; height:100%; object-fit:cover }
+.rv-meta {}
+.rv-name { font-size:16px; font-weight:700; color:var(--dk) }
+.rv:nth-child(5) .rv-name { color:var(--cream) }
+.rv-sub { font-size:13px; font-weight:300; color:var(--ac) }
+.rv:nth-child(5) .rv-sub { color:var(--ac2) }
+.rv-stars { color:var(--ac); letter-spacing:3px; font-size:14px; margin-bottom:16px }
+.rv:nth-child(5) .rv-stars { color:var(--ac2) }
+.rv-q {
+  font-family:var(--f-serif); font-size:20px; font-weight:400; font-style:italic;
+  line-height:1.6; color:var(--dk); flex:1;
+  position:relative; padding-left:18px;
+}
+.rv:nth-child(5) .rv-q { color:rgba(242,237,227,.85) }
+.rv-q::before { content:''; position:absolute; left:0; top:6px; bottom:6px; width:2px; background:var(--ac) }
+.rv:nth-child(5) .rv-q::before { background:var(--ac2) }
+.rv-item { font-size:13px; font-weight:300; color:var(--ac); margin-top:18px }
+.rv:nth-child(5) .rv-item { color:var(--ac2) }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CONTACT — split full-bleed
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.contact-split { display:grid; grid-template-columns:1fr 1fr }
+.contact-l {
+  background:var(--dk); padding:96px var(--G);
+  border-right:1px solid rgba(255,255,255,.05);
+}
+.contact-l h2 {
+  font-family:var(--f-serif); font-size:clamp(36px,4.5vw,62px);
+  font-weight:300; color:var(--cream); line-height:1.1;
+  letter-spacing:-.015em; margin-bottom:22px;
+}
+.contact-l h2 em { font-style:italic; color:var(--ac2) }
+.contact-l p { font-size:18px; font-weight:300; color:rgba(242,237,227,.38); line-height:1.85; max-width:380px }
+.contact-r { padding:96px var(--G); background:var(--paper); display:flex; flex-direction:column; gap:12px }
+.f-inp {
+  background:var(--white); border:1px solid var(--ln2); color:var(--dk);
+  padding:16px 18px; font-family:var(--f-sans); font-size:16px; font-weight:300;
+  outline:none; width:100%; transition:border-color .2s;
+}
+.f-inp::placeholder { color:var(--dim) }
+.f-inp:focus { border-color:var(--ac) }
+.f-checks { display:flex; flex-direction:column; gap:12px; margin-top:6px }
+.f-chk {
+  display:flex; align-items:flex-start; gap:12px;
+  cursor:pointer; font-size:15px; font-weight:300; color:var(--mu);
+  line-height:1.55; user-select:none;
+}
+.f-chk a { color:var(--ac); text-decoration:underline; text-underline-offset:3px }
+.f-box {
+  width:20px; height:20px; flex-shrink:0; margin-top:1px;
+  border:1px solid var(--ln2); background:transparent;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; color:#fff; transition:all .18s;
+}
+.f-box.on { background:var(--ac); border-color:var(--ac) }
+.f-req { color:var(--ac) }
+.f-btn {
+  background:var(--ac); color:#fff; border:none; padding:17px;
+  font-family:var(--f-sans); font-size:13px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  cursor:pointer; transition:background .2s,transform .15s; margin-top:6px;
+}
+.f-btn:hover { background:var(--ac1); transform:translateY(-1px) }
+.f-note { font-size:14px; font-weight:300; color:var(--dim); text-align:center }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FOOTER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+footer {
+  background:var(--dk2); padding:36px var(--G);
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:16px;
+}
+.f-logo { font-family:var(--f-serif); font-size:20px; font-weight:400; color:var(--cream) }
+.f-logo small { display:block; font-family:var(--f-sans); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--ac2); margin-top:2px; font-weight:400 }
+.f-meta { font-size:13px; color:rgba(242,237,227,.2); text-align:center; line-height:1.7 }
+.f-meta a { color:var(--ac2); text-decoration:none }
+.f-contact { font-size:15px; font-weight:300; color:rgba(242,237,227,.36); text-align:right; line-height:1.75 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   REVEAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.R { opacity:0; transform:translateY(22px); transition:opacity .7s,transform .7s }
+.R.v { opacity:1; transform:none }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE 1080
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media(max-width:1080px) {
+  :root { --G:40px }
+  .hero { grid-template-columns:1fr; min-height:auto }
+  .hero-l { order:2; padding:60px var(--G) }
+  .hero-r { order:1; height:52vw; min-height:280px }
+  /* about */
+  .about .pw .grid .c6 { grid-column:span 12 }
+  
+  /* works */
+  .works .pw .grid .c4 { grid-column:span 12 }
+  /* services */
+  .svc-sidebar { grid-column:span 12; border-right:none; border-bottom:1px solid rgba(255,255,255,.06) }
+  .svc-grid { grid-column:span 12; grid-template-columns:repeat(2,1fr) }
+  .svc-item:nth-child(3n) { border-right:1px solid var(--ln) }
+  .svc-item:nth-child(2n) { border-right:none }
+  /* process */
+  .proc-grid { grid-template-columns:repeat(2,1fr) }
+  .proc-step:nth-child(2) { border-right:none }
+  .proc-step:nth-child(3) { border-top:1px solid var(--ln2) }
+  .proc-step:nth-child(4) { border-right:none; border-top:1px solid var(--ln2) }
+  .proc-step::after { display:none }
+  /* pricing */
+  .pricing .pw .grid .c4 { grid-column:span 12 }
+  /* reviews */
+  .rv-grid { grid-template-columns:repeat(2,1fr) }
+  /* contact */
+  .contact-split { grid-template-columns:1fr }
+  .contact-l { border-right:none; border-bottom:1px solid rgba(255,255,255,.06) }
+  /* quiz */
+  .qz-step,.qz-final { padding:36px }
+  .qz-nav { padding:18px 36px }
+  .qz-prog { padding:0 36px }
+  .qz-head { padding:26px 36px }
+}
+@media(max-width:700px) {
+  :root { --G:20px }
+  .nav-ul,.nav-btn { display:none }
+  .hbg { display:flex }
+  .hero-l { padding:44px var(--G) 52px }
+  .hero-r { height:64vw }
+  .h-num { font-size:38px }
+  .svc-grid { grid-template-columns:1fr }
+  .svc-item { border-right:none!important }
+  .svc-item:not(:last-child) { border-bottom:1px solid var(--ln)!important }
+  .proc-grid { grid-template-columns:1fr }
+  .proc-step { border-right:none; border-bottom:1px solid var(--ln2) }
+  .proc-step:last-child { border-bottom:none }
+  .proc-step:nth-child(3),.proc-step:nth-child(4) { border-top:none }
+  .rv-grid { grid-template-columns:1fr }
+  .qz-opts { grid-template-columns:1fr }
+  .qz-form-row { grid-template-columns:1fr }
+  .qz-step,.qz-final { padding:24px var(--G) }
+  .qz-nav { padding:16px var(--G) }
+  .qz-prog { padding:0 var(--G) }
+  .qz-head { padding:22px var(--G); flex-direction:column; align-items:flex-start; gap:14px }
+  footer { flex-direction:column; align-items:flex-start }
+  .f-contact,.f-meta { text-align:left }
+}
+</style>
+</head>
+<body>
+
+<div class="ribbon">✦ Это мог бы быть <b>ваш сайт</b> — веб-разработка для реставраторов мебели ✦ <b>ELENACH</b></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="#">РЕН<em>ЕС</em>САНС</a>
+  <ul class="nav-ul">
+    <li><a href="#works">Работы</a></li>
+    <li><a href="#quiz">Рассчитать</a></li>
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#process">Процесс</a></li>
+    <li><a href="#reviews">Отзывы</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <button class="nav-btn" onclick="G('contact')">Отправить фото</button>
+  <button class="hbg" id="hbg"><span></span><span></span><span></span></button>
+</nav>
+<nav class="mob" id="mob">
+  <a href="#works"   class="mL">Работы</a>
+  <a href="#quiz"    class="mL">Рассчитать</a>
+  <a href="#services"class="mL">Услуги</a>
+  <a href="#process" class="mL">Процесс</a>
+  <a href="#reviews" class="mL">Отзывы</a>
+  <a href="#contact" class="mL">Контакты</a>
+  <a href="#contact" class="mob-cta mL">Отправить фото</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section style="border-bottom:1px solid var(--ln)">
+  <div class="hero">
+    <div class="hero-l">
+      <div class="h-label R">Реставрация мебели · Москва · с 2009</div>
+      <div>
+        <h1 class="h-h1 R">Вещи,<br>которые<br><em>помнят</em></h1>
+        <p class="h-p R">Мы не ремонтируем — мы возвращаем предметам их характер. С уважением к материалу, времени и памяти владельца.</p>
+      </div>
+      <div>
+        <div class="h-stats R">
+          <div class="h-stat">
+            <div class="h-num" data-to="200" data-sfx="+">0</div>
+            <div class="h-lbl">предметов восстановлено</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-num" data-to="15">0</div>
+            <div class="h-lbl">лет в ремесле</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-num" data-to="98" data-sfx="%">0</div>
+            <div class="h-lbl">клиентов довольны</div>
+          </div>
+        </div>
+        <div class="h-btns R">
+          <button class="btn-fill" onclick="G('quiz')">Рассчитать стоимость</button>
+          <button class="btn-ghost" onclick="G('works')">Смотреть работы</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-r">
+      <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1400&q=85&fit=crop" alt="Антикварное кресло" onerror="this.style.display='none'">
+      <div class="hero-r-overlay">
+        <p>Антикварное кресло<br>после реставрации</p>
+        <span>Работа мастерской</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span>Реставрация дерева</span><span class="dot">·</span>
+    <span>Перетяжка обивки</span><span class="dot">·</span>
+    <span>Антикварная мебель</span><span class="dot">·</span>
+    <span>Позолота и патина</span><span class="dot">·</span>
+    <span>Восстановление шпона</span><span class="dot">·</span>
+    <span>Выезд мастера</span><span class="dot">·</span>
+    <span>Гарантия на работы</span><span class="dot">·</span>
+    <span>Бесплатная оценка</span><span class="dot">·</span>
+    <span>Реставрация дерева</span><span class="dot">·</span>
+    <span>Перетяжка обивки</span><span class="dot">·</span>
+    <span>Антикварная мебель</span><span class="dot">·</span>
+    <span>Позолота и патина</span><span class="dot">·</span>
+    <span>Восстановление шпона</span><span class="dot">·</span>
+    <span>Выезд мастера</span><span class="dot">·</span>
+    <span>Гарантия на работы</span><span class="dot">·</span>
+    <span>Бесплатная оценка</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- ══ ABOUT  c5 + c6 os1 ══ -->
+<section class="sec">
+  <div class="pw sec-pad">
+    <div class="grid">
+      <div class="c6 R">
+        <div class="about-q">
+          Мы не<br>перекрашиваем —<br>мы <em>проявляем</em><br>то, что было
+        </div>
+        <div class="about-tags">
+          <span class="tag">Дерево</span>
+          <span class="tag">Ткань и кожа</span>
+          <span class="tag">Позолота</span>
+          <span class="tag">Антиквариат</span>
+          <span class="tag">Реставрация на выезд</span>
+        </div>
+      </div>
+      <div class="c6 R">
+        <div class="about-body">
+          <p>Каждая царапина, потёртость и трещина — это история. Наша задача не стереть её, а помочь предмету снова быть собой. Мы работаем с деревом, тканью, лаком и временем — и понимаем, как они разговаривают между собой.</p>
+          <p>Антикварное кресло, советский буфет или итальянский диван — к каждому предмету подходим индивидуально. Используем только реставрационные материалы: натуральный шеллак, воск, анилиновые морилки и сусальное золото.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WORKS  3×c4 ══ -->
+<section class="sec works" id="works">
+  <div class="pw sec-pad">
+    <div class="sec-label">Наши работы</div>
+    <div class="grid R">
+      <div class="c4">
+        <div class="w-card">
+          <div class="swap">
+            <div class="sw-b"><img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800&q=80&fit=crop" alt="До" onerror="this.style.display='none'"></div>
+            <div class="sw-a"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=800&q=80&fit=crop" alt="После" onerror="this.style.display='none'"></div>
+            <span class="sw-lbl">До</span><span class="sw-lbl-a">После</span>
+            <span class="sw-hint">Наведите →</span>
+          </div>
+          <div class="w-info">
+            <div class="w-title">Кресло 1950-х, дуб</div>
+            <div class="w-desc">Восстановление шпона, замена обивки на натуральный бархат, обработка шеллаком</div>
+          </div>
+        </div>
+      </div>
+      <div class="c4">
+        <div class="w-card">
+          <div class="swap">
+            <div class="sw-b"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=80&fit=crop" alt="До" onerror="this.style.display='none'"></div>
+            <div class="sw-a"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80&fit=crop" alt="После" onerror="this.style.display='none'"></div>
+            <span class="sw-lbl">До</span><span class="sw-lbl-a">После</span>
+            <span class="sw-hint">Наведите →</span>
+          </div>
+          <div class="w-info">
+            <div class="w-title">Диван начала XX века</div>
+            <div class="w-desc">Перетяжка натуральным бархатом, полная реставрация ножек из массива ореха</div>
+          </div>
+        </div>
+      </div>
+      <div class="c4">
+        <div class="w-card">
+          <div class="swap">
+            <div class="sw-b"><img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=700&q=80&fit=crop" alt="До" onerror="this.style.display='none'"></div>
+            <div class="sw-a"><img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=700&q=80&fit=crop" alt="После" onerror="this.style.display='none'"></div>
+            <span class="sw-lbl">До</span><span class="sw-lbl-a">После</span>
+            <span class="sw-hint">Наведите →</span>
+          </div>
+          <div class="w-info">
+            <div class="w-title">Комод, красное дерево</div>
+            <div class="w-desc">Восстановление маркетри, полировка поверхности до зеркального блеска</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QUIZ  c10 os1 ══ -->
+<section class="sec quiz-sec" id="quiz">
+  <div class="pw sec-pad">
+    <div class="sec-label">Рассчитать стоимость</div>
+    <div class="quiz-center R">
+        <div class="quiz-box">
+          <div class="qz-head">
+            <div class="qz-head-l">
+              <h2>Узнайте стоимость за 1 минуту</h2>
+              <p>5 вопросов — и персональный расчёт у вас на руках</p>
+            </div>
+            <div class="qz-bonus">
+              <b>−10%</b>
+              <span>скидка за квиз</span>
+            </div>
+          </div>
+          <div class="qz-prog">
+            <div class="qz-dots" id="qz-dots"></div>
+            <span class="qz-prog-lbl" id="qz-lbl">Шаг 1 из 5</span>
+          </div>
+
+          <div class="qz-step active" id="qz-1">
+            <span class="qz-q-num">Вопрос 01 / 05</span>
+            <div class="qz-question">Что нужно реставрировать?</div>
+            <div class="qz-opts" id="qo-1">
+              <button class="qz-opt" data-k="type" data-v="Стул / табурет" onclick="qPick(this,'qo-1')"><div class="qz-opt-t">Стул / табурет</div><div class="qz-opt-s">от 5 000 ₽</div></button>
+              <button class="qz-opt" data-k="type" data-v="Кресло" onclick="qPick(this,'qo-1')"><div class="qz-opt-t">Кресло</div><div class="qz-opt-s">от 9 000 ₽</div></button>
+              <button class="qz-opt" data-k="type" data-v="Диван" onclick="qPick(this,'qo-1')"><div class="qz-opt-t">Диван</div><div class="qz-opt-s">от 15 000 ₽</div></button>
+              <button class="qz-opt" data-k="type" data-v="Стол" onclick="qPick(this,'qo-1')"><div class="qz-opt-t">Стол</div><div class="qz-opt-s">от 10 000 ₽</div></button>
+              <button class="qz-opt" data-k="type" data-v="Комод / шкаф / бюро" onclick="qPick(this,'qo-1')"><div class="qz-opt-t">Комод / шкаф / бюро</div><div class="qz-opt-s">от 17 000 ₽</div></button>
+              <button class="qz-opt" data-k="type" data-v="Антиквариат" onclick="qPick(this,'qo-1')"><div class="qz-opt-t">Антиквариат</div><div class="qz-opt-s">индивидуально</div></button>
+            </div>
+          </div>
+
+          <div class="qz-step" id="qz-2">
+            <span class="qz-q-num">Вопрос 02 / 05</span>
+            <div class="qz-question">Какое состояние предмета сейчас?</div>
+            <div class="qz-opts" id="qo-2">
+              <button class="qz-opt" data-k="cond" data-v="Хорошее" onclick="qPick(this,'qo-2')"><div class="qz-opt-t">Хорошее</div><div class="qz-opt-s">Мелкие царапины, лёгкие потёртости</div></button>
+              <button class="qz-opt" data-k="cond" data-v="Среднее" onclick="qPick(this,'qo-2')"><div class="qz-opt-t">Среднее</div><div class="qz-opt-s">Трещины, сколы, потёртая обивка</div></button>
+              <button class="qz-opt" data-k="cond" data-v="Плохое" onclick="qPick(this,'qo-2')"><div class="qz-opt-t">Плохое</div><div class="qz-opt-s">Рассохлось, шатается, покрытие облупилось</div></button>
+              <button class="qz-opt" data-k="cond" data-v="Аварийное" onclick="qPick(this,'qo-2')"><div class="qz-opt-t">Аварийное</div><div class="qz-opt-s">Требует полного восстановления</div></button>
+            </div>
+          </div>
+
+          <div class="qz-step" id="qz-3">
+            <span class="qz-q-num">Вопрос 03 / 05</span>
+            <div class="qz-question">Что нужно сделать с покрытием?</div>
+            <div class="qz-opts" id="qo-3">
+              <button class="qz-opt" data-k="finish" data-v="Восстановить родное покрытие" onclick="qPick(this,'qo-3')"><div class="qz-opt-t">Восстановить родное</div><div class="qz-opt-s">Лак, шеллак, полировка</div></button>
+              <button class="qz-opt" data-k="finish" data-v="Натуральное новое покрытие" onclick="qPick(this,'qo-3')"><div class="qz-opt-t">Натуральное новое</div><div class="qz-opt-s">Масло, воск, морилка</div></button>
+              <button class="qz-opt" data-k="finish" data-v="Заменить обивку" onclick="qPick(this,'qo-3')"><div class="qz-opt-t">Заменить обивку</div><div class="qz-opt-s">Бархат, ткань, натуральная кожа</div></button>
+              <button class="qz-opt" data-k="finish" data-v="Позолота или патина" onclick="qPick(this,'qo-3')"><div class="qz-opt-t">Позолота / патина</div><div class="qz-opt-s">Антикварный подход, сусальное золото</div></button>
+              <button class="qz-opt" data-k="finish" data-v="Нужна консультация" onclick="qPick(this,'qo-3')"><div class="qz-opt-t">Нужна консультация</div><div class="qz-opt-s">Мастер подберёт вариант</div></button>
+            </div>
+          </div>
+
+          <div class="qz-step" id="qz-4">
+            <span class="qz-q-num">Вопрос 04 / 05</span>
+            <div class="qz-question">Когда нужен готовый результат?</div>
+            <div class="qz-opts" id="qo-4">
+              <button class="qz-opt" data-k="urgency" data-v="Не срочно, 1–2 месяца" onclick="qPick(this,'qo-4')"><div class="qz-opt-t">Не срочно</div><div class="qz-opt-s">1–2 месяца, стандартная цена</div></button>
+              <button class="qz-opt" data-k="urgency" data-v="В течение месяца" onclick="qPick(this,'qo-4')"><div class="qz-opt-t">В течение месяца</div><div class="qz-opt-s">Ускоренный порядок работы</div></button>
+              <button class="qz-opt" data-k="urgency" data-v="Срочно, до 2 недель" onclick="qPick(this,'qo-4')"><div class="qz-opt-t">Срочно — до 2 недель</div><div class="qz-opt-s">+20% к стоимости</div></button>
+            </div>
+          </div>
+
+          <div class="qz-step" id="qz-5">
+            <span class="qz-q-num">Вопрос 05 / 05</span>
+            <div class="qz-question">Как планируете привезти предмет?</div>
+            <div class="qz-opts" id="qo-5">
+              <button class="qz-opt" data-k="delivery" data-v="Привезу сам в мастерскую" onclick="qPick(this,'qo-5')"><div class="qz-opt-t">Привезу сам</div><div class="qz-opt-s">Мастерская в Москве, удобная парковка</div></button>
+              <button class="qz-opt" data-k="delivery" data-v="Нужен выезд мастера" onclick="qPick(this,'qo-5')"><div class="qz-opt-t">Выезд мастера на дом</div><div class="qz-opt-s">+2 000 ₽, Москва и МО</div></button>
+              <button class="qz-opt" data-k="delivery" data-v="Нужна помощь с транспортировкой" onclick="qPick(this,'qo-5')"><div class="qz-opt-t">Нужна доставка</div><div class="qz-opt-s">Организуем транспорт</div></button>
+            </div>
+          </div>
+
+          <div class="qz-final" id="qz-final">
+            <h2>Отлично — вы ответили на все вопросы</h2>
+            <div class="qz-final-sub">Оставьте контакты — пришлём персональный расчёт и скидку 10% в течение 24 часов</div>
+            <div class="qz-summary" id="qz-summary"></div>
+            <div class="qz-form-row">
+              <input class="qz-inp" type="text"  placeholder="Ваше имя *" id="qz-name">
+              <input class="qz-inp" type="tel"   placeholder="Телефон / WhatsApp *" id="qz-phone">
+            </div>
+            <div class="qz-checks">
+              <label class="qz-chk" onclick="qChk(this,'qb1')">
+                <div class="chkb" id="qb1"></div>
+                <span>Согласен(а) с <a href="#" onclick="return false">политикой конфиденциальности</a> и даю согласие на обработку персональных данных <span style="color:var(--ac)">*</span></span>
+              </label>
+              <label class="qz-chk" onclick="qChk(this,'qb2')">
+                <div class="chkb" id="qb2"></div>
+                <span>Принимаю <a href="#" onclick="return false">политику использования cookie</a> на данном сайте</span>
+              </label>
+            </div>
+            <button class="qz-submit" onclick="qSubmit()">Получить расчёт и скидку 10% →</button>
+            <p class="qz-note">Без спама · Ответим в течение 24 часов · Оценка бесплатна</p>
+          </div>
+
+          <div class="qz-nav" id="qz-nav">
+            <button class="qz-back" id="qz-back" onclick="qPrev()" disabled>← Назад</button>
+            <button class="qz-next" id="qz-next" onclick="qNext()">Далее →</button>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+<section class="sec" id="services">
+  <div class="pw sec-pad">
+    <div class="sec-label">Что мы делаем</div>
+    <div class="svc-wrap R">
+      <div class="svc-sidebar">
+        <div>
+          <h2>Полный цикл<br><em>реставрации</em></h2>
+          <p>От советской мебели до антиквариата XVIII века. Работаем с любыми материалами и периодами.</p>
+        </div>
+        <button class="btn-fill" style="margin-top:32px;align-self:flex-start" onclick="G('contact')">Обсудить проект</button>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-item"><div class="svc-n">01</div><div class="svc-t">Деревянные поверхности</div><div class="svc-d">Шпон, резьба, трещины, сколы. Работаем с дубом, орехом, красным деревом и экзотикой.</div></div>
+        <div class="svc-item"><div class="svc-n">02</div><div class="svc-t">Перетяжка и обивка</div><div class="svc-d">Натуральные ткани, бархат, лён, кожа. Подбираем материал под стиль и эпоху предмета.</div></div>
+        <div class="svc-item"><div class="svc-n">03</div><div class="svc-t">Антикварная реставрация</div><div class="svc-d">Шеллак, позолота, патина. Музейный подход — сохраняем историческую ценность вещи.</div></div>
+        <div class="svc-item"><div class="svc-n">04</div><div class="svc-t">Восстановление декора</div><div class="svc-d">Резьба, маркетри, инкрустация, бронзовые накладки — возвращаем в исходный вид.</div></div>
+        <div class="svc-item"><div class="svc-n">05</div><div class="svc-t">Выезд мастера на дом</div><div class="svc-d">Работаем у вас, если предмет нельзя транспортировать. Москва и Московская область.</div></div>
+        <div class="svc-item"><div class="svc-n">06</div><div class="svc-t">Консервация</div><div class="svc-d">Для коллекционеров — деликатная стабилизация без изменения облика. Следы времени сохраняются.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS  4 шага ══ -->
+<section class="sec" id="process">
+  <div class="pw sec-pad">
+    <div class="sec-label">Как это происходит</div>
+    <div class="proc-grid R">
+      <div class="proc-step"><div class="proc-n">01</div><div class="proc-t">Присылаете фото</div><div class="proc-d">С нескольких ракурсов в мессенджер или e-mail. Предварительная оценка — бесплатно в течение 24 часов.</div></div>
+      <div class="proc-step"><div class="proc-n">02</div><div class="proc-t">Согласовываем детали</div><div class="proc-d">Обсуждаем объём работ, материалы, сроки и окончательную стоимость. Никаких сюрпризов в процессе.</div></div>
+      <div class="proc-step"><div class="proc-n">03</div><div class="proc-t">Принимаем предмет</div><div class="proc-d">Привозите в мастерскую или вызываете мастера на дом. Аккуратная упаковка для транспортировки включена.</div></div>
+      <div class="proc-step"><div class="proc-n">04</div><div class="proc-t">Получаете результат</div><div class="proc-d">Фотоотчёт на каждом этапе. Доставка по договорённости. Письменная гарантия на все виды работ.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING  3×c4 ══ -->
+<section class="sec">
+  <div class="pw sec-pad">
+    <div class="sec-label">Ориентировочная стоимость</div>
+    <div class="grid R">
+      <div class="c4"><div class="pc"><span class="pc-tag">Стулья и кресла</span><div class="pc-name">Стул, деревянный</div><div class="pc-price">от 5 000 ₽</div><div class="pc-note">Восстановление конструкции, шлифовка, покрытие. Обивка — отдельно.</div></div></div>
+      <div class="c4"><div class="pc feat"><span class="pc-tag">★ Чаще всего заказывают</span><div class="pc-name">Кресло, диван</div><div class="pc-price">от 15 000 ₽</div><div class="pc-note">Полная реставрация каркаса + перетяжка. Антиквариат — индивидуально.</div></div></div>
+      <div class="c4"><div class="pc"><span class="pc-tag">Корпусная мебель</span><div class="pc-name">Комод, шкаф, бюро</div><div class="pc-price">от 17 000 ₽</div><div class="pc-note">Зависит от состояния поверхностей, наличия декора и резьбы.</div></div></div>
+    </div>
+    <p class="price-note">Оценка по фото — бесплатна и ни к чему не обязывает</p>
+  </div>
+</section>
+
+<!-- ══ REVIEWS  7 отзывов, 3 col ══ -->
+<section class="sec" id="reviews">
+  <div class="pw sec-pad">
+    <div class="sec-label">Что говорят клиенты</div>
+    <div class="rv-grid R">
+
+      <div class="rv">
+        <div class="rv-top">
+          <div class="rv-photo"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80&fit=crop&crop=face" alt="Наталья" onerror="this.style.background='var(--linen)'"></div>
+          <div class="rv-meta"><div class="rv-name">Наталья В.</div><div class="rv-sub">Два кресла эпохи ампир</div></div>
+        </div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-q">Отдала бабушкины кресла — думала, безнадёжно. Вернули в таком состоянии, что страшно садиться. Теперь они главное в гостиной, соседи спрашивают где купила.</div>
+        <div class="rv-item">Москва, 2024</div>
+      </div>
+
+      <div class="rv">
+        <div class="rv-top">
+          <div class="rv-photo"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80&fit=crop&crop=face" alt="Сергей" onerror="this.style.background='var(--linen)'"></div>
+          <div class="rv-meta"><div class="rv-name">Сергей М.</div><div class="rv-sub">Комод Людовика XV</div></div>
+        </div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-q">Коллекционирую антикварную мебель 15 лет. Здесь единственное место, где оставляю вещи без тревоги. Работают как реставраторы, а не как ремонтники.</div>
+        <div class="rv-item">Санкт-Петербург, 2024</div>
+      </div>
+
+      <div class="rv">
+        <div class="rv-top">
+          <div class="rv-photo"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80&fit=crop&crop=face" alt="Ирина" onerror="this.style.background='var(--linen)'"></div>
+          <div class="rv-meta"><div class="rv-name">Ирина К.</div><div class="rv-sub">Диван, начало XX века</div></div>
+        </div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-q">Достался старинный диван от прабабушки. Казалось, он разваливается. После реставрации выглядит как новый, но при этом сохранил всю свою историю и характер.</div>
+        <div class="rv-item">Москва, 2023</div>
+      </div>
+
+      <div class="rv">
+        <div class="rv-top">
+          <div class="rv-photo"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80&fit=crop&crop=face" alt="Алексей" onerror="this.style.background='var(--linen)'"></div>
+          <div class="rv-meta"><div class="rv-name">Алексей Д.</div><div class="rv-sub">Письменный стол, дуб</div></div>
+        </div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-q">Дедушкин письменный стол 50-х годов. Казалось безнадёжным. Мастера сделали всё аккуратно и точно в срок. Отдельное спасибо за фотоотчёт на каждом этапе.</div>
+        <div class="rv-item">Москва, 2024</div>
+      </div>
+
+      <div class="rv">
+        <div class="rv-top">
+          <div class="rv-photo"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&q=80&fit=crop&crop=face" alt="Марина" onerror="this.style.background='var(--linen)'"></div>
+          <div class="rv-meta"><div class="rv-name">Марина Л.</div><div class="rv-sub">Буфет советской эпохи</div></div>
+        </div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-q">Везла буфет из деревни, боялась что не поддастся восстановлению. Результат превзошёл ожидания. Теперь он центр моей кухни-столовой в скандинавском стиле.</div>
+        <div class="rv-item">Подмосковье, 2023</div>
+      </div>
+
+      <div class="rv">
+        <div class="rv-top">
+          <div class="rv-photo"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&q=80&fit=crop&crop=face" alt="Дмитрий" onerror="this.style.background='var(--linen)'"></div>
+          <div class="rv-meta"><div class="rv-name">Дмитрий Г.</div><div class="rv-sub">Антикварный шкаф</div></div>
+        </div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-q">Шкаф XIX века, семейная реликвия. Думал, что просто законсервируют. Но мастера предложили полноценную реставрацию с сохранением патины — и это было правильное решение.</div>
+        <div class="rv-item">Москва, 2024</div>
+      </div>
+
+      <div class="rv">
+        <div class="rv-top">
+          <div class="rv-photo"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&q=80&fit=crop&crop=face" alt="Анна" onerror="this.style.background='var(--linen)'"></div>
+          <div class="rv-meta"><div class="rv-name">Анна П.</div><div class="rv-sub">Четыре стула, орех</div></div>
+        </div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-q">Сдала четыре ореховых стула в ужасном состоянии. Получила обратно комплект, которым можно гордиться. Профессионалы с тонким чувством к материалу и деталям.</div>
+        <div class="rv-item">Москва, 2024</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section id="contact" style="border-bottom:1px solid var(--ln)">
+  <div class="contact-split">
+    <div class="contact-l">
+      <h2>Пришлите фото —<br>скажем честно,<br><em>можно ли восстановить</em></h2>
+      <p style="margin-top:24px">Оценка по фотографиям бесплатна. Мы не беремся за работы, которые не сможем выполнить достойно — и говорим об этом сразу.</p>
+    </div>
+    <div class="contact-r">
+      <input class="f-inp" type="text"  placeholder="Ваше имя *">
+      <input class="f-inp" type="tel"   placeholder="Телефон или WhatsApp *">
+      <input class="f-inp" type="text"  placeholder="Что реставрируем?">
+      <textarea class="f-inp" rows="3"  placeholder="Состояние предмета, пожелания по материалу..." style="resize:none"></textarea>
+      <div class="f-checks">
+        <label class="f-chk" onclick="fChk(this,'fb1')">
+          <div class="f-box" id="fb1"></div>
+          <span>Согласен(а) с <a href="#" onclick="return false">политикой конфиденциальности</a> и даю согласие на обработку персональных данных <span class="f-req">*</span></span>
+        </label>
+        <label class="f-chk" onclick="fChk(this,'fb2')">
+          <div class="f-box" id="fb2"></div>
+          <span>Принимаю <a href="#" onclick="return false">политику использования cookie</a> на данном сайте</span>
+        </label>
+      </div>
+      <button class="f-btn" onclick="fSend()">Отправить и получить оценку</button>
+      <p class="f-note">Ответим в течение 24 часов · Без спама</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">РЕНЕССАНС <small>мастерская реставрации · Москва</small></div>
+  <div class="f-meta">© 2025 Ренессанс<br><a href="#">Разработано ELENACH</a></div>
+  <div class="f-contact">+7 (999) 000-00-00<br>Пн–Сб 10:00–19:00</div>
+</footer>
+
+<script>
+/* helpers */
+function G(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+
+/* hamburger */
+const hbg=document.getElementById('hbg'),mob=document.getElementById('mob');
+hbg.addEventListener('click',()=>{
+  const o=mob.classList.toggle('open');
+  hbg.classList.toggle('open',o);
+  document.body.style.overflow=o?'hidden':'';
+});
+document.querySelectorAll('.mL').forEach(a=>a.addEventListener('click',()=>{
+  mob.classList.remove('open');hbg.classList.remove('open');document.body.style.overflow='';
+}));
+
+/* reveal */
+(()=>{
+  const io=new IntersectionObserver((es,o)=>es.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('v'),i*55);o.unobserve(e.target)}
+  }),{threshold:.05});
+  document.querySelectorAll('.R').forEach(el=>io.observe(el));
+})();
+
+/* animated counters */
+(()=>{
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const el=e.target,to=+el.dataset.to,sfx=el.dataset.sfx||'';
+      let cur=0;
+      const t=setInterval(()=>{
+        cur=Math.min(cur+Math.ceil(to/60),to);
+        el.textContent=cur+sfx;
+        if(cur>=to)clearInterval(t);
+      },18);
+      io.unobserve(el);
+    });
+  },{threshold:.5});
+  document.querySelectorAll('.h-num[data-to]').forEach(el=>io.observe(el));
+})();
+
+/* ── QUIZ ── */
+let qStep=1,qTotal=5,qAns={};
+function qInitDots(){
+  const c=document.getElementById('qz-dots');c.innerHTML='';
+  for(let i=1;i<=qTotal;i++){
+    const d=document.createElement('div');
+    d.className='qz-dot'+(i===1?' cur':'');d.id='qd-'+i;c.appendChild(d);
+  }
+}
+function qUI(){
+  for(let i=1;i<=qTotal;i++){
+    const s=document.getElementById('qz-'+i);
+    if(s)s.classList.toggle('active',i===qStep);
+    const d=document.getElementById('qd-'+i);
+    if(d)d.className='qz-dot'+(i<qStep?' done':i===qStep?' cur':'');
+  }
+  const fin=document.getElementById('qz-final');
+  fin.classList.toggle('active',qStep>qTotal);
+  document.getElementById('qz-nav').style.display=qStep>qTotal?'none':'flex';
+  document.getElementById('qz-lbl').textContent=qStep>qTotal?'Готово ✓':'Шаг '+qStep+' из '+qTotal;
+  document.getElementById('qz-back').disabled=qStep<=1;
+  document.getElementById('qz-next').textContent=qStep>=qTotal?'Получить расчёт →':'Далее →';
+}
+function qPick(btn,gid){
+  document.querySelectorAll('#'+gid+' .qz-opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');qAns[btn.dataset.k]=btn.dataset.v;
+  setTimeout(()=>qNext(),360);
+}
+function qNext(){
+  if(qStep<=qTotal)qStep++;
+  if(qStep>qTotal){
+    const L={type:'Предмет',cond:'Состояние',finish:'Покрытие',urgency:'Срок',delivery:'Доставка'};
+    let h='';
+    for(const[k,v] of Object.entries(qAns))h+=`<strong>${L[k]||k}:</strong> ${v}<br>`;
+    document.getElementById('qz-summary').innerHTML=h||'Ответы получены.';
+  }
+  qUI();
+}
+function qPrev(){if(qStep>1){qStep--;qUI();}}
+function qChk(l,id){const b=document.getElementById(id);b.classList.toggle('on');b.textContent=b.classList.contains('on')?'✓':'';}
+function qSubmit(){
+  const n=document.getElementById('qz-name').value.trim();
+  const p=document.getElementById('qz-phone').value.trim();
+  const ok=document.getElementById('qb1').classList.contains('on');
+  if(!n||!p){alert('Пожалуйста, заполните имя и телефон.');return;}
+  if(!ok){alert('Необходимо согласиться с политикой конфиденциальности.');return;}
+  document.getElementById('qz-final').innerHTML='<div style="text-align:center;padding:24px 0"><div style="font-family:var(--f-serif);font-size:40px;font-weight:300;color:var(--dk);margin-bottom:14px">Заявка отправлена</div><p style="font-size:18px;font-weight:300;color:var(--mu);max-width:400px;margin:0 auto;line-height:1.75">Свяжемся с вами в течение 24 часов.<br>Скидка 10% уже зафиксирована.</p></div>';
+}
+
+/* contact */
+function fChk(l,id){const b=document.getElementById(id);b.classList.toggle('on');b.textContent=b.classList.contains('on')?'✓':'';}
+function fSend(){
+  const ok=document.getElementById('fb1').classList.contains('on');
+  if(!ok){alert('Необходимо согласиться с политикой конфиденциальности.');return;}
+  alert('Заявка отправлена! Ответим в течение 24 часов.');
+}
+
+qInitDots();qUI();
+</script>
+</body>
+</html>
